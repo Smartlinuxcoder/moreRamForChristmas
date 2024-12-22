@@ -87,6 +87,18 @@ document.addEventListener('alpine:init', () => {
                 ]
             };
             return commands[this.selectedDistro]?.join('\n') || '';
+        },
+        copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
         }
     }));
 });

@@ -7,7 +7,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="quandaledingle.css">
-
 </head>
 <body class="dark">
     <div x-data="ramConfigurator" 
@@ -29,7 +28,7 @@
             </template>
         </div>
 
-        <div class="bg-theme-surface0 rounded-lg p-6 shadow-xl max-w-2xl mx-auto mt-8">
+        <div class="bg-theme-surface0 rounded-lg p-6 shadow-xl max-w-4xl mx-auto mt-8">
             <h1 class="text-4xl font-bold mb-6 text-center">🎅 Download some ram for Christmas!</h1>
 
             <div class="mb-6">
@@ -131,7 +130,13 @@
                             <p class="mb-2" x-text="'Additional RAM: ' + desiredRAM + 'GB'"></p>
                             <p class="mb-2" x-text="'Compression: zstd level ' + compressionLevel + ' (ratio: ' + getCurrentCompressionRatio() + 'x)'"></p>
                             <p class="mb-4">Run these commands in your terminal:</p>
-                            <div class="bg-theme-surface2 p-4 rounded-lg font-mono whitespace-pre" x-text="getZramCommands()"></div>
+                            <div class="relative bg-theme-surface2 p-4 rounded-lg">
+                                <pre class="font-mono whitespace-pre overflow-x-auto" x-text="getZramCommands()"></pre>
+                                <button @click="copyToClipboard(getZramCommands())"
+                                        class="absolute top-2 right-2 p-2 bg-theme-surface0 hover:bg-theme-surface1 rounded-lg transition-colors">
+                                    📋 Copy
+                                </button>
+                            </div>
                             <div class="mt-4 bg-theme-yellow/20 p-4 rounded-lg">
                                 <p class="font-bold">🎅 Santa's Tips:</p>
                                 <p>• Your free ram will show up immediately</p>
