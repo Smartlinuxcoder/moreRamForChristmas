@@ -27,7 +27,6 @@
     --crust: #11111b;
 }
 
-/* Catppuccin Latte (Light) */
 .light {
     --rosewater: #dc8a78;
     --flamingo: #dd7878;
@@ -113,4 +112,68 @@
 
 .animate-fall {
     animation: fall linear infinite;
+}
+
+/* Terminal Styling */
+.terminal-box {
+    border: 1px solid var(--surface1);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--base);
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: var(--surface0);
+    border-bottom: 1px solid var(--surface1);
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.dot-red {
+    background-color: var(--red);
+}
+
+.dot-yellow {
+    background-color: var(--yellow);
+}
+
+.dot-green {
+    background-color: var(--green);
+}
+
+/* goofball terminal */
+.gradient-text {
+    background: linear-gradient(
+        135deg,
+        var(--mauve) 0%,
+        var(--red) 25%,
+        var(--peach) 50%,
+        var(--yellow) 75%,
+        var(--green) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 8s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }

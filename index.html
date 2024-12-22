@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ho Ho Ho!</title>
+    <title>🎄 Ho Ho Ho</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="quandaledingle.css">
+
 </head>
 <body class="dark">
     <div x-data="ramConfigurator" 
@@ -29,8 +30,8 @@
         </div>
 
         <div class="bg-theme-surface0 rounded-lg p-6 shadow-xl max-w-4xl mx-auto mt-8">
-            <h1 class="text-4xl font-bold mb-6 text-center">🎅 Download some ram for Christmas!</h1>
-
+            <div class="text-4xl font-bold mb-6 text-center flex"><h1>🎅 </h1><h1 class="gradient-text">Download some RAM for Christmas!</h1></div>
+            <p class="text-xl mb-6">We, at Santa HQ have a special gift for you!<br>And for the end of this year we are celebrating by giving you <strong class="gradient-text">free ram</strong>! Here, for free, right now.</p>
             <div class="mb-6">
                 <p class="text-xl mb-2">What operating system are you using?</p>
                 <div class="space-y-2">
@@ -125,25 +126,36 @@
                     <!-- Results -->
                     <template x-if="showResults && selectedDistro">
                         <div class="mt-6 p-4 bg-theme-surface1 rounded-lg">
-                            <h1 class="text-2xl font-bold mb-4">🎁 Before I ask Santa, is this all correct?</h1>
+                            <h2 class="gradient-text text-2xl font-bold mb-4">🎁 Before I ask Santa, is this all correct?</h2>
                             <p class="mb-2" x-text="'Base RAM: ' + currentRAM + 'GB'"></p>
                             <p class="mb-2" x-text="'Additional RAM: ' + desiredRAM + 'GB'"></p>
                             <p class="mb-2" x-text="'Compression: zstd level ' + compressionLevel + ' (ratio: ' + getCurrentCompressionRatio() + 'x)'"></p>
                             <p class="mb-4">Run these commands in your terminal:</p>
-                            <div class="relative bg-theme-surface2 p-4 rounded-lg">
-                                <pre class="font-mono whitespace-pre overflow-x-auto" x-text="getZramCommands()"></pre>
-                                <button @click="copyToClipboard(getZramCommands())"
-                                        class="absolute top-2 right-2 p-2 bg-theme-surface0 hover:bg-theme-surface1 rounded-lg transition-colors">
-                                    📋 Copy
-                                </button>
+                            
+                            <div class="terminal-box">
+                                <div class="terminal-header">
+                                    <div class="terminal-dot dot-red"></div>
+                                    <div class="terminal-dot dot-yellow"></div>
+                                    <div class="terminal-dot dot-green"></div>
+                                    <span class="ml-2 text-sm text-theme-text">Terminal</span>
+                                </div>
+                                <div class="relative p-4">
+                                    <pre class="font-mono whitespace-pre overflow-x-auto text-theme-text" x-text="getZramCommands()"></pre>
+                                    <button @click="copyToClipboard(getZramCommands())"
+                                            class="absolute top-2 right-2 p-2 bg-theme-surface0 hover:bg-theme-surface1 rounded-lg transition-colors">
+                                        📋 Copy
+                                    </button>
+                                </div>
                             </div>
+
                             <div class="mt-4 bg-theme-yellow/20 p-4 rounded-lg">
-                                <p class="font-bold">🎅 Santa's Tips:</p>
-                                <p>• Your free ram will show up immediately</p>
+                                <div class="font-bold flex"><p>🎅 </p><p class="gradient-text">Santa's Tips:</p></div>
+                                <p>• Your free RAM will show up immediately</p>
                                 <p>• If your system feels funky, don't worry, changes reset after a reboot</p>
                                 <p>• Monitor your system's performance with 'free -h' command</p>
-                                <p>• Have fun with your new ram!</p>
+                                <p>• Have fun with your new RAM!</p>
                             </div>
+                            <p>Made by <a class="gradient-text" href="https://github.com/Smartlinuxcoder" target="_blank">Smartlinuxcoder</a></p>
                         </div>
                     </template>
                 </div>
@@ -151,7 +163,6 @@
         </div>
     </div>
 
-    <script src="app.js">
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 document.addEventListener('alpine:init', () => {
+    console.log('Oh hi hello hi curious person');
     Alpine.data('ramConfigurator', () => ({
         isDark: true,
         currentOS: '',
@@ -12,6 +13,7 @@ document.addEventListener('alpine:init', () => {
             { value: 2, label: "2GB" },
             { value: 4, label: "4GB" },
             { value: 8, label: "8GB" },
+            { value: 12, label: "12GB" },
             { value: 16, label: "16GB" },
             { value: 32, label: "32GB" },
             { value: 64, label: "64GB" }
@@ -47,7 +49,7 @@ document.addEventListener('alpine:init', () => {
 
         availableRAMOptions() {
             const maxRAM = this.getMaxPossibleRAM();
-            return [1, 2, 4, 8, 16, 32, 48, 64, 128].filter(ram => ram <= maxRAM);
+            return [1, 2, 4, 8, 16, 32, 48, 64, 128, this.getMaxPossibleRAM()].filter(ram => ram <= maxRAM);
         },
 
         selectDesiredRAM(ram) {
