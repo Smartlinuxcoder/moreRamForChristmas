@@ -60,21 +60,20 @@ document.addEventListener('alpine:init', () => {
         getZramCommands() {
             const commands = {
                 "Ubuntu/Debian": [
-                    "sudo apt update",
-                    "sudo apt install zram-tools",
-                    `# Setting up zstd compression level ${this.compressionLevel}`,
-                    "echo zstd | sudo tee /sys/block/zram0/comp_algorithm",
-                    `echo ${this.compressionLevel} | sudo tee /sys/block/zram0/comp_algorithm_level`,
-                    `# Setting up zram size for ${this.desiredRAM}GB`,
-                    `echo $((${this.desiredRAM} * 1024 * 1024 * 1024)) | sudo tee /sys/block/zram0/disksize`,
+                    "# Disable the zramswap service",
+                    "sudo systemctl stop zramswap",
+                    "# Load the zram kernel module",
+                    "sudo modprobe zram",
+                    `echo ${this.desiredRAM}G | sudo tee /sys/block/zram0/disksize`,
+                    "# Initialize ZRAM swap space",
                     "sudo mkswap /dev/zram0",
-                    "sudo swapon /dev/zram0"
+                    "# Enable ZRAM swap",
+                    "sudo swapon /dev/zram0",
                 ],
                 "Fedora/RHEL": [
                     "sudo dnf install zram",
-                    `# Setting up zstd compression level ${this.compressionLevel}`,
-                    "echo zstd | sudo tee /sys/block/zram0/comp_algorithm",
-                    `echo ${this.compressionLevel} | sudo tee /sys/block/zram0/comp_algorithm_level`,
+                    "# Load the zram kernel module",
+                    "sudo modprobe zram",
                     `# Setting up zram size for ${this.desiredRAM}GB`,
                     `echo $((${this.desiredRAM} * 1024 * 1024 * 1024)) | sudo tee /sys/block/zram0/disksize`,
                     "sudo mkswap /dev/zram0",
@@ -86,10 +85,19 @@ document.addEventListener('alpine:init', () => {
                     `sudo zramctl /dev/zram0 --algorithm zstd --size ${this.desiredRAM}GiB`,
                     `sudo mkswap -U clear /dev/zram0`,
                     "sudo swapon --discard --priority 100 /dev/zram0",
+                ],
+                "NixOS": [
+                    "# Enable the zram module",
+                    "sudo modprobe zram",
+                    `# Setting up zram size for ${this.desiredRAM}GB`,
+                    `echo $((${this.desiredRAM} * 1024 * 1024 * 1024)) | sudo tee /sys/block/zram0/disksize`,
+                    "sudo mkswap /dev/zram0",
+                    "sudo swapon /dev/zram0"
                 ]
             };
             return commands[this.selectedDistro]?.join('\n') || '';
         },
+        
         copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 const button = event.target;
