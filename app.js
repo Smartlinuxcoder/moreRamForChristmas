@@ -55,7 +55,6 @@ const SantaRamConfigurator = () => {
                 `echo $((${desiredRAMGB} * 1024 * 1024 * 1024)) | sudo tee /sys/block/zram0/disksize`,
                 "sudo mkswap /dev/zram0",
                 "sudo swapon /dev/zram0",
-
             ],
             "Fedora/RHEL": [
                 "sudo dnf install zram",
@@ -66,7 +65,6 @@ const SantaRamConfigurator = () => {
                 `echo $((${desiredRAMGB} * 1024 * 1024 * 1024)) | sudo tee /sys/block/zram0/disksize`,
                 "sudo mkswap /dev/zram0",
                 "sudo swapon /dev/zram0",
-
             ],
             "Arch Linux": [
                 "sudo pacman -S zram-generator",
@@ -77,7 +75,6 @@ const SantaRamConfigurator = () => {
                 `echo $((${desiredRAMGB} * 1024 * 1024 * 1024)) | sudo tee /sys/block/zram0/disksize`,
                 "sudo mkswap /dev/zram0",
                 "sudo swapon /dev/zram0",
-
             ]
         };
         return commands[distro] || [];
@@ -91,7 +88,7 @@ const SantaRamConfigurator = () => {
         // OS Selection
         div({ class: "mb-6" }, [
             p({ class: "text-xl mb-2" }, "What operating system are you using?"),
-            div({ class: "space-y-2" }, [
+            div({ class: "space-y-2" }, 
                 ["Windows", "Linux", "MacOS"].map(os =>
                     label({ class: "flex items-center space-x-2" }, [
                         input({
@@ -106,9 +103,9 @@ const SantaRamConfigurator = () => {
                         span({}, os)
                     ])
                 )
-            ])
+            )
         ]),
-        div({ class: "mt-4" }, () => {
+        () => {
             if (currentOS.val === "MacOS") {
                 return div({
                     class: "bg-theme-red/20 p-4 rounded-lg mb-6"
@@ -221,10 +218,10 @@ const SantaRamConfigurator = () => {
                             p({}, "• Have fun with your new ram!")
                         ])
                     ])
-                ])
+                ]);
             }
             return null;
-        })
+        }
     ]);
 
 };
