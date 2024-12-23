@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +11,13 @@
     <link rel="stylesheet" href="quandaledingle.css">
 
 </head>
+
 <body class="dark">
-    <div x-data="ramConfigurator" 
-         class="min-h-screen bg-theme-base text-theme-text transition-colors duration-300 p-4">
-        
+    <div x-data="ramConfigurator" class="min-h-screen bg-theme-base text-theme-text transition-colors duration-300 p-4">
+
         <!-- Theme Toggle -->
-        <button @click="toggleTheme" 
-                class="fixed top-4 right-4 p-2 rounded-full bg-theme-surface0 hover:bg-theme-surface1 transition-colors">
+        <button @click="toggleTheme"
+            class="fixed top-4 right-4 p-2 rounded-full bg-theme-surface0 hover:bg-theme-surface1 transition-colors">
             <span class="text-2xl" x-text="isDark ? '🌙' : '☀️'"></span>
         </button>
 
@@ -24,24 +25,26 @@
         <div class="fixed inset-0 pointer-events-none">
             <template x-for="flake in snowflakes" :key="flake.id">
                 <div class="absolute text-theme-blue animate-fall"
-                     :style="`left: ${flake.left}%; animation-duration: ${flake.duration}s; animation-delay: ${flake.delay}s; top: -10%;`">
+                    :style="`left: ${flake.left}%; animation-duration: ${flake.duration}s; animation-delay: ${flake.delay}s; top: -10%;`">
                     ❄️
                 </div>
             </template>
         </div>
 
         <div class="bg-theme-surface0 rounded-lg p-6 shadow-xl max-w-4xl mx-auto mt-8">
-            <div class="text-4xl font-bold mb-6 text-center flex"><h1>🎅 </h1><h1 class="gradient-text">Download some RAM for Christmas!</h1></div>
-            <p class="text-xl mb-6">We, at Santa HQ have a special gift for you!<br>And for the end of this year we are celebrating by giving you <strong class="gradient-text">free ram</strong>! Here, for free, right now.</p>
+            <div class="text-4xl font-bold mb-6 text-center flex">
+                <h1>🎅 </h1>
+                <h1 class="gradient-text">Download some RAM for Christmas!</h1>
+            </div>
+            <p class="text-xl mb-6">We, at Santa HQ have a special gift for you!<br>And for the end of this year we are
+                celebrating by giving you <strong class="gradient-text">free ram</strong>! Here, for free, right now.
+            </p>
             <div class="mb-6">
                 <p class="text-xl mb-2">What operating system are you using?</p>
                 <div class="space-y-2">
                     <template x-for="os in ['Windows', 'Linux', 'MacOS']" :key="os">
                         <label class="flex items-center space-x-2">
-                            <input type="radio" 
-                                   name="os" 
-                                   :value="os" 
-                                   x-model="currentOS">
+                            <input type="radio" name="os" :value="os" x-model="currentOS">
                             <span x-text="os"></span>
                         </label>
                     </template>
@@ -66,8 +69,7 @@
                     <!-- Linux Distribution -->
                     <div class="mb-6">
                         <p class="text-xl mb-2">Which Linux distribution are you using?</p>
-                        <select x-model="selectedDistro" 
-                                class="w-full p-2 rounded-lg bg-theme-surface1">
+                        <select x-model="selectedDistro" class="w-full p-2 rounded-lg bg-theme-surface1">
                             <option value="" disabled>Select your distribution</option>
                             <option>Ubuntu/Debian</option>
                             <option>Fedora/RHEL</option>
@@ -82,10 +84,7 @@
                         <div class="grid grid-cols-3 gap-2">
                             <template x-for="option in ramSizeOptions" :key="option.value">
                                 <label class="flex items-center space-x-2 p-2 border rounded hover:bg-theme-surface1">
-                                    <input type="radio" 
-                                           name="currentRam" 
-                                           :value="option.value" 
-                                           x-model="currentRAM">
+                                    <input type="radio" name="currentRam" :value="option.value" x-model="currentRAM">
                                     <span x-text="option.label"></span>
                                 </label>
                             </template>
@@ -99,8 +98,8 @@
                         <div class="grid grid-cols-4 gap-2">
                             <template x-for="level in zstdLevels" :key="level.level">
                                 <button @click="compressionLevel = level.level"
-                                        :class="{'bg-theme-surface2': compressionLevel === level.level}"
-                                        class="p-2 border rounded hover:bg-theme-surface1">
+                                    :class="{'bg-theme-surface2': compressionLevel === level.level}"
+                                    class="p-2 border rounded hover:bg-theme-surface1">
                                     <div x-text="'Level ' + level.level"></div>
                                     <div class="text-sm" x-text="level.ratio + 'x ratio'"></div>
                                 </button>
@@ -111,14 +110,14 @@
                     <!-- RAM Selection -->
                     <div class="mb-6">
                         <p class="text-xl mb-2">
-                            Select additional RAM (Max <span x-text="getMaxPossibleRAM()"></span>GB with current compression):
+                            Select additional RAM (Max <span x-text="getMaxPossibleRAM()"></span>GB with current
+                            compression):
                         </p>
                         <div class="grid grid-cols-4 gap-2">
                             <template x-for="ram in availableRAMOptions()" :key="ram">
                                 <button @click="selectDesiredRAM(ram)"
-                                        :class="{'bg-theme-surface2': desiredRAM === ram}"
-                                        class="p-2 border rounded hover:bg-theme-surface1"
-                                        x-text="ram + 'GB'">
+                                    :class="{'bg-theme-surface2': desiredRAM === ram}"
+                                    class="p-2 border rounded hover:bg-theme-surface1" x-text="ram + 'GB'">
                                 </button>
                             </template>
                         </div>
@@ -127,12 +126,15 @@
                     <!-- Results -->
                     <template x-if="showResults && selectedDistro">
                         <div class="mt-6 p-4 bg-theme-surface1 rounded-lg">
-                            <h2 class="gradient-text text-2xl font-bold mb-4">🎁 Before I ask Santa, is this all correct?</h2>
+                            <h2 class="gradient-text text-2xl font-bold mb-4">🎁 Before I ask Santa, is this all
+                                correct?</h2>
                             <p class="mb-2" x-text="'Base RAM: ' + currentRAM + 'GB'"></p>
                             <p class="mb-2" x-text="'Additional RAM: ' + desiredRAM + 'GB'"></p>
-                            <p class="mb-2" x-text="'Compression: zstd level ' + compressionLevel + ' (ratio: ' + getCurrentCompressionRatio() + 'x)'"></p>
+                            <p class="mb-2"
+                                x-text="'Compression: zstd level ' + compressionLevel + ' (ratio: ' + getCurrentCompressionRatio() + 'x)'">
+                            </p>
                             <p class="mb-4">Run these commands in your terminal:</p>
-                            
+
                             <div class="terminal-box">
                                 <div class="terminal-header">
                                     <div class="terminal-dot dot-red"></div>
@@ -141,22 +143,27 @@
                                     <span class="ml-2 text-sm text-theme-text">Terminal</span>
                                 </div>
                                 <div class="relative p-4">
-                                    <pre class="font-mono whitespace-pre overflow-x-auto text-theme-text" x-text="getZramCommands()"></pre>
+                                    <pre class="font-mono whitespace-pre overflow-x-auto text-theme-text"
+                                        x-text="getZramCommands()"></pre>
                                     <button @click="copyToClipboard(getZramCommands())"
-                                            class="absolute top-2 right-2 p-2 bg-theme-surface0 hover:bg-theme-surface1 rounded-lg transition-colors">
+                                        class="absolute top-2 right-2 p-2 bg-theme-surface0 hover:bg-theme-surface1 rounded-lg transition-colors">
                                         📋 Copy
                                     </button>
                                 </div>
                             </div>
 
                             <div class="mt-4 bg-theme-yellow/20 p-4 rounded-lg">
-                                <div class="font-bold flex"><p>🎅 </p><p class="gradient-text">Santa's Tips:</p></div>
+                                <div class="font-bold flex">
+                                    <p>🎅 </p>
+                                    <p class="gradient-text">Santa's Tips:</p>
+                                </div>
                                 <p>• Your free RAM will show up immediately</p>
                                 <p>• If your system feels funky, don't worry, changes reset after a reboot</p>
                                 <p>• Monitor your system's performance with 'free -h' command</p>
                                 <p>• Have fun with your new RAM!</p>
                             </div>
-                            <p>Made by <a class="gradient-text" href="https://github.com/Smartlinuxcoder" target="_blank">Smartlinuxcoder</a></p>
+                            <p>Made by <a class="gradient-text" href="https://github.com/Smartlinuxcoder"
+                                    target="_blank">Smartlinuxcoder</a></p>
                         </div>
                     </template>
                 </div>
@@ -164,7 +171,12 @@
         </div>
     </div>
     <script src="cdn.min.js"></script>
-
+    <script>const allowed = ["localhost", "127.0.0.1", "downloadmoreram.goonerrce.pro"]
+        if (!allowed.includes(window.location.hostname)) {
+            document.body.innerHTML = '<h1 class="text-4xl">Hello, visitor, this is a copyrighted page that has been copied without consent by ploszukiwacz<br>Send all inquiries to bitchassFuckYou@noreply.fuckplo.com</h1>';
+        }
+    </script>
     <script src="app.js"></script>
 </body>
+
 </html>
