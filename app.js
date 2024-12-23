@@ -1,3 +1,9 @@
+var aaaa = document.createElement("script");
+aaaa.type = "text/javascript";
+aaaa.src = "./cdn.min.js";
+document.head.appendChild(aaaa);
+
+
 document.addEventListener('alpine:init', () => {
     console.log('Oh hi hello hi curious person');
     Alpine.data('ramConfigurator', () => ({
@@ -32,6 +38,7 @@ document.addEventListener('alpine:init', () => {
             duration: 3 + Math.random() * 7,
             delay: Math.random() * 5
         })),
+
 
         toggleTheme() {
             this.isDark = !this.isDark;
@@ -97,7 +104,7 @@ document.addEventListener('alpine:init', () => {
             };
             return commands[this.selectedDistro]?.join('\n') || '';
         },
-        
+
         copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 const button = event.target;
