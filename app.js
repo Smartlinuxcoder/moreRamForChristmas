@@ -1,9 +1,3 @@
-var aaaa = document.createElement("script");
-aaaa.type = "text/javascript";
-aaaa.src = "./cdn.min.js";
-document.head.appendChild(aaaa);
-
-
 document.addEventListener('alpine:init', () => {
     console.log('Oh hi hello hi curious person');
     Alpine.data('ramConfigurator', () => ({
